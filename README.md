@@ -3,6 +3,6 @@
 https://techcommunity.microsoft.com/t5/azure/unsupported-but-very-useful-way-to-use-the-hidden-azure-api/m-p/175754
 
 >
-It only support get method for now!!!
+It only supports the GET method for now, for safety reasons!!!
 ---
 Usage: azure-portal-api.exe "Tenant Id" "Username" "Password" "Azure portal API endpoint"
