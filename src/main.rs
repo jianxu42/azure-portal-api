@@ -74,15 +74,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
         .headers(headers)
         .send()
         .await?
-        .json::<Vec<Value>>()
+        .text()
         .await?;
-    // for i in response {
-    //     let name = i
-    //         .get("name")
-    //         .and_then(Value::as_str)
-    //         .unwrap_or("name not found");
-    //     println!("{:#?}", name);
-    // }
-    println!("{:#?}", response);
+    let value: Value = serde_json::from_str(&response)?;
+    let serialized = serde_json::to_string(&value)?;
+    println!("{:#?}", serialized);
     Ok(())
 }
