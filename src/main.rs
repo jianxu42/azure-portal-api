@@ -66,7 +66,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let uri = endpoint.to_string() + "/skus?api-version=1.6";
     let response = client.get(uri).headers(headers).send().await?;
     let json_response: serde_json::Value = response.json().await?;
-    let license = &json_response.as_array().unwrap()[0];
+    let license = &json_response.as_array().unwrap();
     println!("{:#?}", license);
     Ok(())
 }
