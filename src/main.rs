@@ -1,5 +1,6 @@
 use reqwest::header::{HeaderMap, HeaderValue};
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 use std::{env, error::Error, process};
 use uuid::Uuid;
 
@@ -68,9 +69,20 @@ async fn main() -> Result<(), Box<dyn Error>> {
         HeaderValue::from_str(&Uuid::new_v4().to_string())?,
     );
     let uri = endpoint.to_string() + "/skus?api-version=1.6";
-    let response = client.get(uri).headers(headers).send().await?;
-    let json_response: serde_json::Value = response.json().await?;
-    let license = &json_response.as_array().unwrap();
-    println!("{:#?}", license);
+    let response = client
+        .get(uri)
+        .headers(headers)
+        .send()
+        .await?
+        .json::<Vec<Value>>()
+        .await?;
+    // for i in response {
+    //     let name = i
+    //         .get("name")
+    //         .and_then(Value::as_str)
+    //         .unwrap_or("name not found");
+    //     println!("{:#?}", name);
+    // }
+    println!("{:#?}", response);
     Ok(())
 }
