@@ -1,6 +1,6 @@
 use reqwest::header::{HeaderMap, HeaderValue};
 use serde::{Deserialize, Serialize};
-use std::{env, error::Error};
+use std::{env, error::Error, process};
 use uuid::Uuid;
 
 #[derive(Serialize)]
@@ -21,6 +21,10 @@ struct TokenResponse {
 async fn main() -> Result<(), Box<dyn Error>> {
     // Parse command-line arguments
     let args: Vec<String> = env::args().collect();
+    if args.len() != 5 {
+        eprintln!("Usage: azure-portal-api <tenant_id> <username> <password> <endpoint>");
+        process::exit(1);
+    }
     let tenant_id = &args[1];
     let username = &args[2];
     let password = &args[3];
