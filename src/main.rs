@@ -68,7 +68,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         "x-ms-client-session-id",
         HeaderValue::from_str(&Uuid::new_v4().to_string())?,
     );
-    let uri = endpoint.to_string() + "/skus?api-version=1.6";
+    let uri = endpoint.to_string();
     let response = client
         .get(uri)
         .headers(headers)
